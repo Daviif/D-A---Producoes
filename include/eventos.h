@@ -18,7 +18,7 @@ Evento *criarEvento(int id, char *nome, char *descricao, int qtdIngresso, double
 
 Evento *lerEventos(FILE *in);
 
-void salvarEv(Evento *ev, FILE *out);
+void salvarEvento(Evento *ev, FILE *out);
 
 void criarBaseEventos(FILE *out, int qtdEventos);
 

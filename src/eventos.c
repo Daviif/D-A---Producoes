@@ -61,7 +61,7 @@ void criarBaseEventos(FILE *out, int qtdEventos) {
     for(int i = 0; i < qtdEventos; i++){
         piscina_ids[i] = 1 + i;
     }
-    embaralharIDs(piscina_ids, qtdEventos);
+    embaralhar(piscina_ids, qtdEventos);
     printf("Gerando a base de Eventos...\n");
 
     for (int i = 0; i < qtdEventos; i++) {

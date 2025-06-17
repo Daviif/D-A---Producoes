@@ -25,26 +25,13 @@ char *NomeSeq(char *primeiraLetra){
     return novaLetra;
 }
 
-void embaralharIDs(int *arrayID, int n){
+void embaralhar(int *array, int n){
     if(n > 1){
         for (int i = n - 1; i > 0; i--){
             int j = rand() % (i + 1);
-            int temp = arrayID[j];
-            arrayID[j] = arrayID[i];
-            arrayID[i] = temp;
+            int temp = array[j];
+            array[j] = array[i];
+            array[i] = temp;
         }
     }
-}
-
-void piscinaID(int *IDs, int max_ID){
-    int min_ID = 1, faixa_entreID = max_ID - min_ID + 1;
-
-    int *piscina_ids = (int *) malloc (faixa_entreID * sizeof(int));
-    if (!piscina_ids) return;
-
-    for (int i = 0; i < faixa_entreID; i++){
-        piscina_ids[i] = min_ID + 1;
-    }
-
-    embaralharIDs(piscina_ids, faixa_entreID);
 }

@@ -10,9 +10,6 @@ typedef void (*FuncaoSalvar)(void *dados, FILE *out);
 
 char *NomeSeq(char *primeiraLetra);
 
-void embaralharIDs(int *arrayID, int n);
-
-void piscinaID(int *IDs, int max_ID);
-
+void embaralhar(int *array, int n);
 
 #endif
