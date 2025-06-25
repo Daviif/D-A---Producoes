@@ -6,6 +6,8 @@
 #include <string.h>
 #include <time.h>
 
+void limpar_tela_ansi();
+
 typedef void (*FuncaoSalvar)(void *dados, FILE *out);
 
 char *NomeSeq(char *primeiraLetra);

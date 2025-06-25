@@ -23,6 +23,16 @@ typedef struct{
 } User;
 
 
-User *CadastrarUsuario(char *nome, char *telefone, char *cpf, Tipo usuario);
+User *CadastrarUsuario(int id, char *nome, char *telefone, char *cpf, Tipo usuario);
+
+User *lerUsuario(FILE *in);
+
+void salvarUsuario(User *us, FILE *out);
+
+void criarBaseUsuarios(FILE *out, int qtdUser);
+
+void imprimirUser(User *us);
+
+void imprimirBaseUser(FILE *out);
 
 #endif

@@ -1,5 +1,9 @@
 #include "../include/utilities.h"
 
+void limpar_tela_ansi() {
+    printf("\033[2J\033[H");
+}
+
 char *NomeSeq(char *primeiraLetra){
     int tamanho = strlen(primeiraLetra);
     int i = tamanho - 1;

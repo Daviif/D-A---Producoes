@@ -39,7 +39,6 @@ Evento *lerEventos(FILE *in){
     fread(&ev->qtdIngresso, sizeof(int), 1, in);
     fread(&ev->valorIngresso, sizeof(double), 1, in);
     return ev;
-
 }
 
 void criarBaseEventos(FILE *out, int qtdEventos) {
@@ -105,7 +104,7 @@ void imprimirEvento(Evento *ev) {
     printf("\n**********************************************");
 }
 
-void imprimirBase(FILE *out){
+void imprimirBaseEvento(FILE *out){
     rewind(out);
     Evento *ev;
 
@@ -113,6 +112,4 @@ void imprimirBase(FILE *out){
         imprimirEvento(ev);
     }
     free(ev);
-
-    
 }

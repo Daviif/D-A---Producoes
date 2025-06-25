@@ -24,6 +24,6 @@ void criarBaseEventos(FILE *out, int qtdEventos);
 
 void imprimirEvento(Evento *ev);
 
-void imprimirBase(FILE *out);
+void imprimirBaseEvento(FILE *out);
 
 #endif

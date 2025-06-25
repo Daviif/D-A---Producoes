@@ -6,11 +6,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-void limpar_tela_ansi() {
-    printf("\033[2J\033[H");
-}
-
-
 int main(){
     srand(time(NULL));
 
@@ -29,6 +24,10 @@ int main(){
         printf("Erro ao abrir arquivo\n");
         exit(1);
     }
+
+    criarBaseEventos(arq_eventos, 5);
+    criarBaseUsuarios(arq_users, 2);
+
 
     //Flag para controlar o loop
     int sair = 1;
@@ -49,18 +48,41 @@ int main(){
 
         switch (sair){
             case 1:
-                ;
+                limpar_tela_ansi();
                 int esc1 = 0;
                 do{
                     limpar_tela_ansi();
                     printf("----------------- Tipo de Ordenação -----------------\n");
-                    printf("Algum tipo de ordenação...\n");
+                    printf("Usaremos a Ordenação por MergeSort!\n");
+                    printf("Você deseja odernar:\n");
+                    printf("1 - A base de Eventos\n");
+                    printf("2 - A base de Usuarios\n");
                     printf("3 - Voltar\n");
                     printf("----------------- SAIDA -----------------\n");
                     scanf("%d", &esc1);
                     
                     if(esc1 == 3){
                         break;
+                    }
+
+                    switch (esc1){                    
+                        case 1:
+                            limpar_tela_ansi();
+                            printf("\nVocê escolheu ordenar a base de eventos!\n");
+                            printf("A base desordenada:\n");
+                            imprimirBaseEvento(arq_eventos);
+                            printf("\n\n");
+                            printf("Agora a base ordenada!");
+                        case 2:
+                            limpar_tela_ansi();
+                            printf("\nVocê escolheu ordenar a base de Usuarios!\n");
+                            printf("A base desordenada:\n");
+                            imprimirBaseUser(arq_users);
+                            printf("\n\n");
+                            printf("Agora a base ordenada!");
+
+                        default:
+                            break;
                     }
                 } while(esc1 != 3);
 
