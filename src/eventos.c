@@ -10,7 +10,7 @@ Evento *criarEvento(int id, char *nome, char *descricao, int qtdIngresso, double
     strncpy(ev -> nome, nome, sizeof(ev -> nome) - 1);
     ev -> nome[sizeof(ev -> nome) - 1] = '\0';
     strncpy(ev -> descricao, descricao, sizeof(ev -> descricao) - 1);
-    ev -> nome[sizeof(ev -> descricao) - 1] = '\0';
+    ev -> descricao[sizeof(ev -> descricao) - 1] = '\0';
 
     ev -> qtdIngresso = qtdIngresso;
     ev -> valorIngresso = valorIngresso;

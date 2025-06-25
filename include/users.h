@@ -23,7 +23,7 @@ typedef struct{
 } User;
 
 
-User *CadastrarUsuario(int id, char *nome, char *telefone, char *cpf, Tipo usuario);
+User *CriarUsuario(int id, char *nome, char *telefone, char *cpf, Tipo usuario);
 
 User *lerUsuario(FILE *in);
 
