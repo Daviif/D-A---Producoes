@@ -1,6 +1,6 @@
 #include "../include/HeapSort.h"
 
-
+int cont;
 
 int buscarId(RegistroHeap *r){
     if(r -> tipo == TIPO_Evento){

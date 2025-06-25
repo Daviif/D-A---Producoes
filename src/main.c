@@ -88,7 +88,7 @@ int main(){
                             imprimirBaseUser(arq_users);
                             printf("\n\n");
                             printf("Agora a base ordenada!");
-                            HeapSort(heap, tamEv, arq_eventos, arq_users);
+                            HeapSort(heap, tamUs, arq_eventos, arq_users);
                             imprimirBaseUser(arq_users);
                             break;
                         default:

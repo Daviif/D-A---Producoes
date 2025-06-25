@@ -110,6 +110,6 @@ void imprimirBaseEvento(FILE *out){
 
     while ((ev = lerEventos(out)) != NULL){
         imprimirEvento(ev);
+        free(ev);
     }
-    free(ev);
 }

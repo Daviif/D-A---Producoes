@@ -117,6 +117,7 @@ void imprimirBaseUser(FILE *out){
 
     while ((us = lerUsuario(out)) != NULL){
         imprimirUser(us);
+        free(us);
     } 
 }
 
