@@ -150,3 +150,49 @@ void *cadastrarEvento(FILE *out, char *nome, char *descricao, int qtdIngresso, d
         free(ev);
     }
 }
+
+int deletarEventoPorId(FILE *out, int idParaDeletar)
+{
+    FILE *temp = tmpfile();
+    if (!temp)
+    {
+        perror("Não foi possível criar o arquivo temporário");
+        return 0;
+    }
+
+    rewind(out);
+    Evento *ev;
+    int encontrado = 0;
+
+    while ((ev = lerEventos(out)) != NULL)
+    {
+        if (ev->id != idParaDeletar)
+        {
+            salvarEvento(ev, temp);
+        }
+        else
+        {
+            encontrado = 1;
+        }
+        free(ev);
+    }
+
+    if (!encontrado)
+    {
+        fclose(temp);
+        return 0;
+    }
+
+    freopen(NULL, "wb+", out);
+    rewind(temp);
+    rewind(out);
+
+    while ((ev = lerEventos(temp)) != NULL)
+    {
+        salvarEvento(ev, out);
+        free(ev);
+    }
+
+    fclose(temp);
+    return 1;
+}

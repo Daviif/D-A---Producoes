@@ -223,12 +223,34 @@ int main()
                     case 2:
                         printf("\n--- Listagem de Eventos ---\n");
                         imprimirBaseEvento(arq_eventos);
+
                         pausarTela();
                         break;
                     case 3:
-                        printf("\nFuncionalidade 'Deletar Evento' a ser implementada.\n");
+                        printf("\n--- Exclusão de Evento ---\n");
+
+                        rewind(arq_eventos);
+
+                        Evento *ev = lerEventos(arq_eventos);
+                        if (ev)
+                        {
+                            int idParaExcluir = ev->id;
+                            free(ev);
+
+                            rewind(arq_eventos);
+                            if (deletarEventoPorId(arq_eventos, idParaExcluir))
+                                printf("Evento com ID %d excluído com sucesso!\n", idParaExcluir);
+                            else
+                                printf("Evento com ID %d não encontrado.\n", idParaExcluir);
+                        }
+                        else
+                        {
+                            printf("Nenhum evento disponível para exclusão.\n");
+                        }
+
                         pausarTela();
                         break;
+
                     case 4:
                         printf("\nVoltando ao menu principal...\n");
                         break;

@@ -6,7 +6,8 @@
 #include <string.h>
 #include <time.h>
 
-typedef struct{
+typedef struct
+{
     int id;
     char nome[100];
     char descricao[150];
@@ -25,5 +26,7 @@ void criarBaseEventos(FILE *out, int qtdEventos);
 void imprimirEvento(Evento *ev);
 
 void imprimirBaseEvento(FILE *out);
+
+int deletarEventoPorId(FILE *out, int idParaDeletar);
 
 #endif
