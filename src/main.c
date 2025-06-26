@@ -51,7 +51,7 @@ int main()
         printf("2 - Fazer Busca\n");
         printf("3 - Cadastrar Usuário\n");
         printf("4 - Login\n");
-        printf("5 - Opções Eventos\n");
+        printf("5 - Menu Eventos\n");
         printf("6 - Carrinho\n");
         printf("7 - Logout\n");
         printf("0 - sair\n");
@@ -157,6 +157,123 @@ int main()
                 {
                     ERROR("\nEmail ou senha incorretos.\n");
                 }
+            }
+
+            pausarTela();
+            break;
+
+        case 5:
+            limpar_tela_ansi();
+
+            if (usuarioLogado == NULL)
+            {
+                int escVisitante;
+                do
+                {
+                    limpar_tela_ansi();
+                    printf("--- Menu de Eventos (Visitante) ---\n");
+                    printf("1 - Listar Eventos\n");
+                    printf("2 - Voltar ao Menu Principal\n");
+                    printf("-------------------------------------\n");
+                    printf("Escolha uma opção: ");
+                    scanf("%d", &escVisitante);
+
+                    switch (escVisitante)
+                    {
+                    case 1:
+                        printf("\n--- Lista de Todos os Eventos ---\n");
+                        imprimirBaseEvento(arq_eventos);
+                        pausarTela();
+                        break;
+                    case 2:
+                        printf("\nVoltando ao menu principal...\n");
+                        break;
+                    default:
+                        printf("\nOpção inválida!\n");
+                        pausarTela();
+                        break;
+                    }
+                } while (escVisitante != 2);
+                break;
+            }
+
+            if (usuarioLogado->tipo == Produtor)
+            {
+                int escProdutor;
+                do
+                {
+                    limpar_tela_ansi();
+                    printf("--- Menu de Eventos (Produtor) ---\n");
+                    printf("1 - Cadastrar Novo Evento\n");
+                    printf("2 - Listar Meus Eventos\n");
+                    printf("3 - Deletar um Evento\n");
+                    printf("4 - Voltar ao Menu Principal\n");
+                    printf("----------------------------------\n");
+                    printf("Escolha uma opção: ");
+                    scanf("%d", &escProdutor);
+
+                    switch (escProdutor)
+                    {
+                    case 1:
+                        printf("\nFuncionalidade 'Cadastrar Evento' a ser implementada.\n");
+                        pausarTela();
+                        break;
+                    case 2:
+                        printf("\n--- Lista de Todos os Eventos ---\n");
+                        imprimirBaseEvento(arq_eventos);
+                        pausarTela();
+                        break;
+                    case 3:
+                        printf("\nFuncionalidade 'Deletar Evento' a ser implementada.\n");
+                        pausarTela();
+                        break;
+                    case 4:
+                        printf("\nVoltando ao menu principal...\n");
+                        break;
+                    default:
+                        printf("\nOpção inválida!\n");
+                        pausarTela();
+                    }
+                } while (escProdutor != 4);
+            }
+            else if (usuarioLogado->tipo == Cliente)
+            {
+                int escCliente;
+                do
+                {
+                    limpar_tela_ansi();
+                    printf("------ Menu de Eventos (Cliente) ------\n");
+                    printf("1 - Listar Todos os Eventos\n");
+                    printf("2 - Adicionar Ingresso ao Carrinho\n");
+                    printf("3 - Comprar Ingresso (Direto)\n");
+                    printf("4 - Voltar ao Menu Principal\n");
+                    printf("---------------------------------------\n");
+                    printf("Escolha uma opção: ");
+                    scanf("%d", &escCliente);
+
+                    switch (escCliente)
+                    {
+                    case 1:
+                        printf("\n--- Lista de Todos os Eventos ---\n");
+                        imprimirBaseEvento(arq_eventos);
+                        pausarTela();
+                        break;
+                    case 2:
+                        printf("\nFuncionalidade 'Adicionar ao Carrinho' a ser implementada.\n");
+                        pausarTela();
+                        break;
+                    case 3:
+                        printf("\nFuncionalidade 'Comprar Ingresso' a ser implementada.\n");
+                        pausarTela();
+                        break;
+                    case 4:
+                        printf("\nVoltando ao menu principal...\n");
+                        break;
+                    default:
+                        printf("\nOpção inválida!\n");
+                        pausarTela();
+                    }
+                } while (escCliente != 4);
             }
 
             pausarTela();
