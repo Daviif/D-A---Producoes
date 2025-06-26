@@ -14,4 +14,6 @@ char *NomeSeq(char *primeiraLetra);
 
 void embaralhar(int *array, int n);
 
+void pausarTela();
+
 #endif

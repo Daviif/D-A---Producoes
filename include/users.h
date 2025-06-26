@@ -9,23 +9,28 @@
 #define MAX_PROD 100
 #define MAX_CLI 500000
 
-typedef enum {
+typedef enum
+{
     Produtor,
     Cliente
 } Tipo;
 
-typedef struct{
+typedef struct
+{
     int id;
     char nome[100];
+    char email[100];
+    char senha[50];
     char telefone[11];
     char cpf[11];
     Tipo tipo;
 } User;
 
-
-User *CriarUsuario(int id, char *nome, char *telefone, char *cpf, Tipo usuario);
+User *CriarUsuario(int id, char *nome, char *email, char *senha, char *telefone, char *cpf, Tipo usuario);
 
 User *lerUsuario(FILE *in);
+
+User *loginPorEmailSenha(FILE *in, const char *email, const char *senha);
 
 void salvarUsuario(User *us, FILE *out);
 
@@ -34,5 +39,7 @@ void criarBaseUsuarios(FILE *out, int qtdUser);
 void imprimirUser(User *us);
 
 void imprimirBaseUser(FILE *out);
+
+void *cadastrarUsuario(FILE *out, char *nome, char *email, char *senha, char *telefone, char *cpf, Tipo Usuario);
 
 #endif
