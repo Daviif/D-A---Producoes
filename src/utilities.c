@@ -1,4 +1,5 @@
 #include "../include/utilities.h"
+#include "../include/users.h"
 
 void limpar_tela_ansi()
 {
@@ -53,4 +54,34 @@ void pausarTela()
     printf("\n\nPressione ENTER para continuar...");
     getchar();
     getchar();
+}
+
+int tamanho_registroEv() {
+    return sizeof(int) 
+           + sizeof(char) * 100 
+           + sizeof(char) * 150
+           + sizeof(int)
+           + sizeof(double); 
+}
+
+int tamanho_registroUs() {
+    return sizeof(int) 
+           + sizeof(char) * 100 
+           + sizeof(char) * 100
+           + sizeof(char) * 50
+           + sizeof(char) * 12
+           + sizeof(char) * 12
+           + sizeof(Tipo); 
+}
+
+int tamanho_arquivoEv(FILE *arq) {
+    fseek(arq, 0, SEEK_END);
+    int tam = trunc(ftell(arq) / tamanho_registroEv());
+    return tam;
+}
+
+int tamanho_arquivoUs(FILE *arq) {
+    fseek(arq, 0, SEEK_END);
+    int tam = trunc(ftell(arq) / tamanho_registroUs());
+    return tam;
 }
