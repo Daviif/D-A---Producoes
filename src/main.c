@@ -122,13 +122,12 @@ int main()
             break;
         case 3:
             limpar_tela_ansi();
-            int esc3 = 0;
-            User *us;
+
             printf("Informe os dados para o cadastro: \n");
             printf("Nome: Davi | Email: davi@email.com | Senha: davi123 | Telefone: (31) 99999-9999 | CPF: 111.222.333-00 | Tipo: Produtor");
             cadastrarUsuario(arq_users, "Davi", "davi@email.com", "davi123", "(31) 99999-9999", "111.222.333-00", 0);
             tamUs++;
-            imprimirBaseUser(arq_users);
+            // imprimirBaseUser(arq_users);
 
             pausarTela();
             break;
@@ -175,7 +174,7 @@ int main()
                     printf("1 - Listar Eventos\n");
                     printf("2 - Voltar ao Menu Principal\n");
                     printf("-------------------------------------\n");
-                    printf("Escolha uma opção: ");
+                    printf("Escolha uma opcaoo: ");
                     scanf("%d", &escVisitante);
 
                     switch (escVisitante)
@@ -189,7 +188,7 @@ int main()
                         printf("\nVoltando ao menu principal...\n");
                         break;
                     default:
-                        printf("\nOpção inválida!\n");
+                        ERROR("\nOpcaoo invalida!\n");
                         pausarTela();
                         break;
                     }
@@ -205,21 +204,24 @@ int main()
                     limpar_tela_ansi();
                     printf("--- Menu de Eventos (Produtor) ---\n");
                     printf("1 - Cadastrar Novo Evento\n");
-                    printf("2 - Listar Meus Eventos\n");
+                    printf("2 - Listar Eventos\n");
                     printf("3 - Deletar um Evento\n");
                     printf("4 - Voltar ao Menu Principal\n");
                     printf("----------------------------------\n");
-                    printf("Escolha uma opção: ");
+                    printf("Escolha uma opcao: ");
                     scanf("%d", &escProdutor);
 
                     switch (escProdutor)
                     {
                     case 1:
-                        printf("\nFuncionalidade 'Cadastrar Evento' a ser implementada.\n");
+                        printf("Informe os dados para o cadastro: \n");
+                        printf("Nome: Arraial D&A Producoes | Descricao: O melhor arraial da região! | Quantidade de Ingressos: 100 | Valo(R$): 20.50");
+                        cadastrarEvento(arq_eventos, "Arraial D&A Producoes", "O melhor arraial da regiao!", 100, 20.5);
+
                         pausarTela();
                         break;
                     case 2:
-                        printf("\n--- Lista de Todos os Eventos ---\n");
+                        printf("\n--- Listagem de Eventos ---\n");
                         imprimirBaseEvento(arq_eventos);
                         pausarTela();
                         break;
@@ -231,7 +233,7 @@ int main()
                         printf("\nVoltando ao menu principal...\n");
                         break;
                     default:
-                        printf("\nOpção inválida!\n");
+                        ERROR("\nOpcao invalida!\n");
                         pausarTela();
                     }
                 } while (escProdutor != 4);
@@ -248,7 +250,7 @@ int main()
                     printf("3 - Comprar Ingresso (Direto)\n");
                     printf("4 - Voltar ao Menu Principal\n");
                     printf("---------------------------------------\n");
-                    printf("Escolha uma opção: ");
+                    printf("Escolha uma opcaoo: ");
                     scanf("%d", &escCliente);
 
                     switch (escCliente)
@@ -270,7 +272,7 @@ int main()
                         printf("\nVoltando ao menu principal...\n");
                         break;
                     default:
-                        printf("\nOpção inválida!\n");
+                        ERROR("\nOpcaoo invalida!\n");
                         pausarTela();
                     }
                 } while (escCliente != 4);
@@ -288,7 +290,7 @@ int main()
             }
             else
             {
-                printf("\nNenhum usuário está logado.\n");
+                printf("\nNenhum usuario esta logado.\n");
             }
 
             pausarTela();
