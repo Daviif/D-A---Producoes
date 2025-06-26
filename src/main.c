@@ -2,6 +2,7 @@
 #include "users.c"
 #include "utilities.c"
 #include "HeapSort.c"
+#include "buscas.c"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -118,6 +119,125 @@ int main()
             limpar_tela_ansi();
             int esc2 = 0;
 
+            do{
+                printf("----------------- Tipo de Busca -----------------\n");
+                printf("1 - Busca Sequencial\n");
+                printf("2 - Busca Binária\n");
+                printf("3 - Voltar\n");
+                printf("----------------- SAIDA -----------------\n");
+                scanf("%d", &esc2);
+
+                if(esc2 == 3){
+                    break;
+                }
+
+                switch (esc2){
+                    int esc02;
+                    case 1:
+                        do {
+                            limpar_tela_ansi();
+                            printf("----------------- OPCOES -----------------\n");
+                            printf("Você deseja usar Busca Sequencial em:\n");
+                            printf("1 - Eventos\n");
+                            printf("2 - Usuarios\n");
+                            printf("3 - Voltar\n");
+                            printf("----------------- SAIDA -----------------\n");
+                            scanf("%d", &esc02);
+
+                            if(esc02 == 3){
+                                break;
+                            }
+
+                            switch(esc02){
+                                Evento *ev;
+                                User *us;
+                                int id;
+                                case 1:
+                                    printf("Você escolheu Eventos!\n");
+                                    //printf("Informe o ID do evento: ");
+                                    //scanf("%d", &id);
+                                    ev = Evento_buscaSequencial_PorId(arq_eventos, 3);
+                                    if(ev){
+                                        printf("Id de numero %d não encontrado.", id);
+                                        printf("Tente novamente");
+                                        break;
+                                    } 
+                                    imprimirEvento(ev);
+                                    break;
+                                case 2:
+                                    printf("Você escolheu Usuarios!\n");
+                                    //printf("Informe o ID do usuario: ");
+                                    //scanf("%d", &id);
+                                    us = User_buscaSequencial_PorId(arq_users, 3);
+                                    if(!us){
+                                        printf("Id de numero %d não encontrado.", id);
+                                        printf("Tente novamente");
+                                        break;
+                                    } 
+                                    imprimirUser(us);
+                                    break;
+                                default:
+                                    printf("Opção Invalida");
+                                    break;
+                            }
+
+                        } while(esc02 != 3);
+                    case 2:
+                        do {
+                            limpar_tela_ansi();
+                            printf("----------------- OPCOES -----------------\n");
+                            printf("Você deseja usar Busca Binária em:\n");
+                            printf("1 - Eventos\n");
+                            printf("2 - Usuarios\n");
+                            printf("3 - Voltar\n");
+                            printf("----------------- SAIDA -----------------\n");
+                            scanf("%d", &esc02);
+
+                            if(esc02 == 3){
+                                break;
+                            }
+
+                            switch(esc02){
+                                Evento *ev;
+                                User *us;
+                                
+                                
+                                case 1:
+                                    printf("Você escolheu Eventos!\n");
+                                    int idB = 3;
+                                    //printf("Informe o ID do evento: ");
+                                    //scanf("%d", &idB);
+                                    ev = Evento_buscaBinaria_PorId(arq_eventos, 3, 0, tamanho_arquivoEv(arq_eventos)-1);
+                                    
+                                    if(ev){
+                                        printf("Id de numero %d não encontrado.", idB);
+                                        printf("Tente novamente");
+                                        pausarTela();
+                                        break;
+                                    } 
+                                    imprimirEvento(ev);
+                                    pausarTela();
+                                    break;
+                                case 2:
+                                    printf("Você escolheu Usuarios!\n");
+                                    //printf("Informe o ID do usuario: ");
+                                    //scanf("%d", &idB);
+                                    us = User_buscaSequencial_PorId(arq_users, 15);
+                                    if(!us){
+                                        printf("Id de numero %d não encontrado.", idB);
+                                        printf("Tente novamente");
+                                        break;
+                                    } 
+                                    imprimirUser(us);
+                                    break;
+                                default:
+                                    printf("Opção Invalida");
+                                    break;
+                            }
+                        } while(esc02 != 3);
+                        pausarTela();
+                }
+            } while (esc2 != 3);
             pausarTela();
             break;
         case 3:
