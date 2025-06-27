@@ -161,7 +161,7 @@ int main()
                                     scanf("%d", &id);
                                     rewind(arq_eventos);
                                     ev = Evento_buscaSequencial_PorId(arq_eventos, id);
-                                    if(ev){
+                                    if(!ev){
                                         printf("Id de numero %d não encontrado.", id);
                                         printf("Tente novamente");
                                         break;
@@ -251,10 +251,8 @@ int main()
                                     break;
                             }
                         } while(esc02 != 3);
-                        pausarTela();
                 }
             } while (esc2 != 3);
-            pausarTela();
             break;
         case 3:
             limpar_tela_ansi();
@@ -350,7 +348,10 @@ int main()
                     switch (escProdutor)
                     {
                     case 1:
-                        printf("\nFuncionalidade 'Cadastrar Evento' a ser implementada.\n");
+                        limpar_tela_ansi();
+                        printf("Informe os dados para o cadastro: \n");
+                        printf("Nome: FelipeRet | Descrição: Show de musica | QtdIngres: 12000 | Valor Ing: 175\n");
+                        cadastrarEvento(arq_eventos, "FelipeRet", "Show de musica ", 12000, 175.00);
                         pausarTela();
                         break;
                     case 2:

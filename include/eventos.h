@@ -26,4 +26,6 @@ void imprimirEvento(Evento *ev);
 
 void imprimirBaseEvento(FILE *out);
 
+void *cadastrarEvento(FILE *out, char *nome, char *descricao, int qtdIngresso, double valorIngresso);
+
 #endif

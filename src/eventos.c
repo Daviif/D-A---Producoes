@@ -113,3 +113,20 @@ void imprimirBaseEvento(FILE *out){
         free(ev);
     }
 }
+
+void *cadastrarEvento(FILE *out, char *nome, char *descricao, int qtdIngresso, double valorIngresso)
+{
+    int novoId = gerarIdUnico(out, tamanho_registroEv());
+
+    Evento *ev = criarEvento(novoId, nome, descricao, qtdIngresso, valorIngresso);
+
+    fseek(out, 0, SEEK_END);
+    
+    if (ev){
+        salvarEvento(ev, out);
+        printf("\nEvento '%s' cadastrado com sucesso com o ID: %d\n", ev->nome, ev->id);
+        free(ev);
+    }
+
+    return NULL;
+}
