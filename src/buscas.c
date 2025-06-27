@@ -60,3 +60,32 @@ Evento *Evento_buscaBinaria_PorId(FILE *in, int chave, int inicio, int fim){
 
     return NULL;
 }
+
+User *User_buscaBinaria_PorID(FILE *in, int chave, int inicio, int fim){
+    int cod = -1;
+    User *us = NULL;
+
+    while(inicio <= fim){
+        int meio = inicio + (fim - inicio) / 2;
+
+        fseek(in, meio * tamanho_registroUs(), SEEK_SET);
+        us = lerUsuario(in);
+        if(us == NULL) break;
+
+        cod = us->id;
+
+        if (cod == chave){
+            return us;
+        }
+
+        if(cod > chave){
+            fim = meio - 1;
+        }
+        else{
+            inicio = meio + 1;
+        }
+        free(us); // Libere se não for o usuário certo
+    }
+
+    return NULL;
+}

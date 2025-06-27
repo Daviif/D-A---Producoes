@@ -20,12 +20,16 @@ typedef struct {
     } dado;
 } RegistroHeap;
 
-int buscarId(RegistroHeap *r);
+void lerRegistro(FILE *arq, void *registro, int pos, int tipoRegistro);
 
-void trocar(RegistroHeap *a, RegistroHeap *b);
+void escreverRegistro(FILE *arq, void *registro, int pos, int tipoRegistro);
 
-void Heapify(RegistroHeap v[], int n, int i);
+int obterId(void *registro, int tipoRegistro);
 
-void HeapSort(RegistroHeap v[], int tam, FILE *arq_eventos_out, FILE *arq_users_out);
+void trocarRegistros(FILE *arq, int i, int j, int tipoRegistro);
+
+void heapify(FILE *arq, int n, int i, int tipoRegistro);
+
+void heapSort(FILE *arq, int n, int tipoRegistro);
 
 #endif
