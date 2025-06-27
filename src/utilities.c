@@ -75,9 +75,9 @@ size_t tamanhoRegistro(int tipoRegistro){
     } else {
         return tamanho_registroUs();
     }
+}
 
-int tamanho_arquivoEv(FILE *arq)
-{
+int tamanho_arquivoEv(FILE *arq){
     fseek(arq, 0, SEEK_END);
     int tam = trunc(ftell(arq) / tamanho_registroEv());
     return tam;
@@ -112,8 +112,9 @@ int gerarIdUnico(FILE *in, size_t tamanhoRegistro)
     while (fread(registro, tamanhoRegistro, 1, in) == 1)
     {
         int id = *(int *)registro; 
-        if (id > maiorId) 
-            maiorId = id; n
+        if (id > maiorId){
+            maiorId = id;
+        }
     }
 
     free(registro);
