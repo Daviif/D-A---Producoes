@@ -1,54 +1,88 @@
 #include "../include/HeapSort.h"
 
-int cont;
+void lerRegistro(FILE *arq, void *registro, int pos, int tipoRegistro) {
+    size_t tamanho = tamanhoRegistro(tipoRegistro);
+    fseek(arq, pos * tamanho, SEEK_SET);
+    fread(registro, tamanho, 1, arq);
+}
 
-int buscarId(RegistroHeap *r){
-    if(r -> tipo == TIPO_Evento){
-        return r -> dado.evento.id;
-    }
-    else{
-        return r -> dado.user.id;
+void escreverRegistro(FILE *arq, void *registro, int pos, int tipoRegistro) {
+    size_t tamanho = tamanhoRegistro(tipoRegistro);
+    fseek(arq, pos * tamanho, SEEK_SET);
+    fwrite(registro, tamanho, 1, arq);
+}
+
+int obterId(void *registro, int tipoRegistro) {
+    if (tipoRegistro == TIPO_Evento) {
+        return ((Evento *)registro)->id;
+    } else {
+        return ((User *)registro)->id;
     }
 }
 
-void trocar(RegistroHeap *a, RegistroHeap *b){
-    RegistroHeap temp = *a;
-    *a = *b;
-    *b = temp;
+void trocarRegistros(FILE *arq, int i, int j, int tipoRegistro) {
+    size_t tamanho = tamanhoRegistro(tipoRegistro);
+    void *reg_i = malloc(tamanho);
+    void *reg_j = malloc(tamanho);
+
+    lerRegistro(arq, reg_i, i, tipoRegistro);
+    lerRegistro(arq, reg_j, j, tipoRegistro);
+
+    escreverRegistro(arq, reg_i, j, tipoRegistro);
+    escreverRegistro(arq, reg_j, i, tipoRegistro);
+
+    free(reg_i);
+    free(reg_j);
 }
 
-void Heapify(RegistroHeap v[], int tam, int i){
-    int menor = i;
+void heapify(FILE *arq, int n, int i, int tipoRegistro) {
+    int maior = i;
     int esq = 2 * i + 1;
     int dir = 2 * i + 2;
 
-    if(esq < tam && buscarId(&v[esq]) < buscarId(&v[menor])){
-        menor = esq;
-    }
-    if(esq < tam && buscarId(&v[dir]) < buscarId(&v[menor])){
-        menor = dir;
+    size_t tamanho = tamanhoRegistro(tipoRegistro);
+    void *reg_maior = malloc(tamanho);
+    void *reg_esq = malloc(tamanho);
+    void *reg_dir = malloc(tamanho);
+
+    
+    lerRegistro(arq, reg_maior, i, tipoRegistro);
+
+    if (esq < n) {
+        lerRegistro(arq, reg_esq, esq, tipoRegistro);
+        if (obterId(reg_esq, tipoRegistro) > obterId(reg_maior, tipoRegistro)) {
+            maior = esq;
+            memcpy(reg_maior, reg_esq, tamanho);
+        }
     }
 
-    if(menor != i){
-        trocar(&v[i], &v[menor]);
-        Heapify(v, tam, menor);
+    if (dir < n) {
+        lerRegistro(arq, reg_dir, dir, tipoRegistro);
+        if (obterId(reg_dir, tipoRegistro) > obterId(reg_maior, tipoRegistro)) {
+            maior = dir;
+        }
+    }
+
+    free(reg_maior);
+    free(reg_esq);
+    free(reg_dir);
+
+    if (maior != i) {
+        trocarRegistros(arq, i, maior, tipoRegistro);
+        heapify(arq, n, maior, tipoRegistro);
     }
 }
 
-void HeapSort(RegistroHeap v[], int tam, FILE *arq_eventos_out, FILE *arq_users_out){
-    for(int i = tam / 2 - 1; i >= 0; i--){
-        Heapify(v, tam, i);
-    }
-    for (int i = tam - 1; i > 0; i--){
-        trocar(&v[0], &v[i]);
-        Heapify(v, i, 0);
-    }
-    
-    for (int i = 0; i < tam; i++) {
-        if (v[i].tipo == TIPO_Evento)
-            salvarEvento(&v[i].dado.evento, arq_eventos_out);
-        else
-            salvarUsuario(&v[i].dado.user, arq_users_out);
+
+void heapSort(FILE *arq, int n, int tipoRegistro) {
+    for (int i = n / 2 - 1; i >= 0; i--) {
+        heapify(arq, n, i, tipoRegistro);
     }
 
+    for (int i = n - 1; i > 0; i--) {
+        trocarRegistros(arq, 0, i, tipoRegistro);
+
+        heapify(arq, i, 0, tipoRegistro);
+    }
+    fflush(arq);
 }

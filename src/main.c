@@ -33,7 +33,7 @@ int main()
         exit(1);
     }
 
-    int tamEv = 5, tamUs = 10;
+    int tamEv = 2, tamUs = 5;
 
     User *usuarioLogado = NULL;
 
@@ -89,9 +89,11 @@ int main()
                     printf("A base desordenada:\n");
                     imprimirBaseEvento(arq_eventos);
                     printf("\n\n");
-                    printf("Agora a base ordenada!");
+                    printf("------------------------------------\n");
+                    printf("Agora a base ordenada!\n");
                     rewind(arq_eventos);
-                    HeapSort(heap, tamEv, arq_eventos, arq_users);
+                    int total_eventos = tamanho_arquivoEv(arq_eventos);
+                    heapSort(arq_eventos, total_eventos, TIPO_Evento);
                     imprimirBaseEvento(arq_eventos);
 
                     pausarTela();
@@ -102,8 +104,11 @@ int main()
                     printf("A base desordenada:\n");
                     imprimirBaseUser(arq_users);
                     printf("\n\n");
-                    printf("Agora a base ordenada!");
-                    HeapSort(heap, tamUs, arq_eventos, arq_users);
+                    printf("------------------------------------\n");
+                    printf("Agora a base ordenada!\n");
+                    rewind(arq_users);
+                    int total_users = tamanho_arquivoUs(arq_users);
+                    heapSort(arq_users, total_users, TIPO_User);
                     imprimirBaseUser(arq_users);
 
                     pausarTela();
@@ -112,8 +117,6 @@ int main()
                     break;
                 }
             } while (esc1 != 3);
-
-            pausarTela();
             break;
         case 2:
             limpar_tela_ansi();
@@ -154,27 +157,31 @@ int main()
                                 int id;
                                 case 1:
                                     printf("Você escolheu Eventos!\n");
-                                    //printf("Informe o ID do evento: ");
-                                    //scanf("%d", &id);
-                                    ev = Evento_buscaSequencial_PorId(arq_eventos, 3);
+                                    printf("Informe o ID do evento: ");
+                                    scanf("%d", &id);
+                                    rewind(arq_eventos);
+                                    ev = Evento_buscaSequencial_PorId(arq_eventos, id);
                                     if(ev){
                                         printf("Id de numero %d não encontrado.", id);
                                         printf("Tente novamente");
                                         break;
                                     } 
                                     imprimirEvento(ev);
+                                    pausarTela();
                                     break;
                                 case 2:
                                     printf("Você escolheu Usuarios!\n");
-                                    //printf("Informe o ID do usuario: ");
-                                    //scanf("%d", &id);
-                                    us = User_buscaSequencial_PorId(arq_users, 3);
+                                    printf("Informe o ID do usuario: ");
+                                    scanf("%d", &id);
+                                    rewind(arq_users);
+                                    us = User_buscaSequencial_PorId(arq_users, id);
                                     if(!us){
                                         printf("Id de numero %d não encontrado.", id);
                                         printf("Tente novamente");
                                         break;
                                     } 
                                     imprimirUser(us);
+                                    pausarTela();
                                     break;
                                 default:
                                     printf("Opção Invalida");
@@ -200,16 +207,19 @@ int main()
                             switch(esc02){
                                 Evento *ev;
                                 User *us;
-                                
-                                
                                 case 1:
                                     printf("Você escolheu Eventos!\n");
-                                    int idB = 3;
-                                    //printf("Informe o ID do evento: ");
-                                    //scanf("%d", &idB);
-                                    ev = Evento_buscaBinaria_PorId(arq_eventos, 3, 0, tamanho_arquivoEv(arq_eventos)-1);
+                                    int idB;
+                                    printf("A base tem que estar ordenada!\nOrdenando...\n");
+                                    int total_eventos = tamanho_arquivoEv(arq_eventos);
+                                    heapSort(arq_eventos, total_eventos, TIPO_Evento);
+                                    printf("Ordenado!\nAgora informe o ID do evento: ");
+                                    scanf("%d", &idB);
+
+                                    rewind(arq_eventos);
+                                    ev = Evento_buscaBinaria_PorId(arq_eventos, idB, 0, tamanho_arquivoEv(arq_eventos)-1);
                                     
-                                    if(ev){
+                                    if(!ev){
                                         printf("Id de numero %d não encontrado.", idB);
                                         printf("Tente novamente");
                                         pausarTela();
@@ -220,15 +230,21 @@ int main()
                                     break;
                                 case 2:
                                     printf("Você escolheu Usuarios!\n");
-                                    //printf("Informe o ID do usuario: ");
-                                    //scanf("%d", &idB);
-                                    us = User_buscaSequencial_PorId(arq_users, 15);
+                                    printf("A base tem que estar ordenada!\nOrdenando...\n");
+                                    int total_users = tamanho_arquivoUs(arq_users);
+                                    heapSort(arq_users, total_users, TIPO_User);
+                                    printf("Ordenado!\nAgora informe o ID do Usuario: ");
+                                    scanf("%d", &idB);
+                                    rewind(arq_users);
+
+                                    us = User_buscaBinaria_PorID(arq_users, idB, 0, tamanho_arquivoUs(arq_eventos) - 1);
                                     if(!us){
                                         printf("Id de numero %d não encontrado.", idB);
                                         printf("Tente novamente");
                                         break;
                                     } 
                                     imprimirUser(us);
+                                    pausarTela();
                                     break;
                                 default:
                                     printf("Opção Invalida");
@@ -247,7 +263,6 @@ int main()
             printf("Informe os dados para o cadastro: \n");
             printf("Nome: Davi | Email: davi@email.com | Senha: davi123 | Telefone: (31) 99999-9999 | CPF: 111.222.333-00 | Tipo: Produtor");
             cadastrarUsuario(arq_users, "Davi", "davi@email.com", "davi123", "(31) 99999-9999", "111.222.333-00", 0);
-            tamUs++;
             imprimirBaseUser(arq_users);
 
             pausarTela();
