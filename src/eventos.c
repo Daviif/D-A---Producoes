@@ -110,7 +110,7 @@ void imprimirEvento(Evento *ev)
     printf("%d", ev->id);
     printf("\nNome: ");
     printf("%s", ev->nome);
-    printf("\nDescrição: ");
+    printf("\nDescricao: ");
     printf("%s", ev->descricao);
     printf("\nQuantidade de Ingressos disponiveis: ");
     printf("%d", ev->qtdIngresso);

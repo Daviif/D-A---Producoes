@@ -27,4 +27,8 @@ int tamanho_arquivoEv(FILE *arq);
 
 int tamanho_arquivoUs(FILE *arq);
 
+void gerarDataAtual(char *dest);
+
+int gerarIdUnico(FILE *in, size_t tamanhoRegistro);
+
 #endif

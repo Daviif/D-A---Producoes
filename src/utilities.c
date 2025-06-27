@@ -1,5 +1,7 @@
 #include "../include/utilities.h"
 #include "../include/users.h"
+#include <time.h>
+#include <stdio.h>
 
 void limpar_tela_ansi()
 {
@@ -56,32 +58,55 @@ void pausarTela()
     getchar();
 }
 
-int tamanho_registroEv() {
-    return sizeof(int) 
-           + sizeof(char) * 100 
-           + sizeof(char) * 150
-           + sizeof(int)
-           + sizeof(double); 
+int tamanho_registroEv()
+{
+    return sizeof(int) + sizeof(char) * 100 + sizeof(char) * 150 + sizeof(int) + sizeof(double);
 }
 
-int tamanho_registroUs() {
-    return sizeof(int) 
-           + sizeof(char) * 100 
-           + sizeof(char) * 100
-           + sizeof(char) * 50
-           + sizeof(char) * 12
-           + sizeof(char) * 12
-           + sizeof(Tipo); 
+int tamanho_registroUs()
+{
+    return sizeof(int) + sizeof(char) * 100 + sizeof(char) * 100 + sizeof(char) * 50 + sizeof(char) * 12 + sizeof(char) * 12 + sizeof(Tipo);
 }
 
-int tamanho_arquivoEv(FILE *arq) {
+int tamanho_arquivoEv(FILE *arq)
+{
     fseek(arq, 0, SEEK_END);
     int tam = trunc(ftell(arq) / tamanho_registroEv());
     return tam;
 }
 
-int tamanho_arquivoUs(FILE *arq) {
+int tamanho_arquivoUs(FILE *arq)
+{
     fseek(arq, 0, SEEK_END);
     int tam = trunc(ftell(arq) / tamanho_registroUs());
     return tam;
+}
+
+void gerarDataAtual(char *dest)
+{
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+
+    // dd/mm/aaaa
+    sprintf(dest, "%02d/%02d/%04d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+}
+
+int gerarIdUnico(FILE *in, size_t tamanhoRegistro)
+{
+    rewind(in);
+    void *registro = malloc(tamanhoRegistro);
+    if (!registro)
+        return 1;
+
+    int maiorId = 0;
+
+    while (fread(registro, tamanhoRegistro, 1, in) == 1)
+    {
+        int id = *(int *)registro;
+        if (id > maiorId)
+            maiorId = id;
+    }
+
+    free(registro);
+    return maiorId + 1;
 }
