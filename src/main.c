@@ -3,6 +3,7 @@
 #include "utilities.c"
 #include "HeapSort.c"
 #include "buscas.c"
+#include "carrinho.c"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,7 +15,7 @@ int main()
 {
     srand(time(NULL));
 
-    FILE *arq_eventos, *arq_users;
+    FILE *arq_eventos, *arq_users, *arq_carrinho, *arq_ingressos;
     FILE *out;
     FILE *log;
 
@@ -33,7 +34,22 @@ int main()
         exit(1);
     }
 
+
     int tamEv = 2, tamUs = 5;
+
+    if ((arq_carrinho = fopen("carrinhos.dat", "wb+")) == NULL)
+    {
+        ERROR("Erro ao abrir arquivo carrinhos.dat");
+        exit(1);
+    }
+
+    if ((arq_ingressos = fopen("ingressos.dat", "wb+")) == NULL)
+    {
+        ERROR("Erro ao abrir arquivo ingressos.dat");
+        exit(1);
+    }
+
+    int tamEv = 5, tamUs = 10;
 
     User *usuarioLogado = NULL;
 
@@ -50,11 +66,12 @@ int main()
         printf("--------------------------- MENU ---------------------------\n");
         printf("1 - Ordenar Base\n");
         printf("2 - Fazer Busca\n");
-        printf("3 - Cadastrar Usuário\n");
+        printf("3 - Cadastrar UsuArio\n");
         printf("4 - Login\n");
         printf("5 - Menu Eventos\n");
         printf("6 - Carrinho\n");
-        printf("7 - Logout\n");
+        printf("7 - Ingressos\n");
+        printf("8 - Logout\n");
         printf("0 - sair\n");
         printf("-------------------------- SAIDA ---------------------------\n");
         scanf("%d", &sair);
@@ -122,7 +139,8 @@ int main()
             limpar_tela_ansi();
             int esc2 = 0;
 
-            do{
+            do
+            {
                 printf("----------------- Tipo de Busca -----------------\n");
                 printf("1 - Busca Sequencial\n");
                 printf("2 - Busca Binária\n");
@@ -130,26 +148,30 @@ int main()
                 printf("----------------- SAIDA -----------------\n");
                 scanf("%d", &esc2);
 
-                if(esc2 == 3){
+                if (esc2 == 3)
+                {
                     break;
                 }
 
-                switch (esc2){
+                switch (esc2)
+                {
                     int esc02;
-                    case 1:
-                        do {
-                            limpar_tela_ansi();
-                            printf("----------------- OPCOES -----------------\n");
-                            printf("Você deseja usar Busca Sequencial em:\n");
-                            printf("1 - Eventos\n");
-                            printf("2 - Usuarios\n");
-                            printf("3 - Voltar\n");
-                            printf("----------------- SAIDA -----------------\n");
-                            scanf("%d", &esc02);
+                case 1:
+                    do
+                    {
+                        limpar_tela_ansi();
+                        printf("----------------- OPCOES -----------------\n");
+                        printf("Você deseja usar Busca Sequencial em:\n");
+                        printf("1 - Eventos\n");
+                        printf("2 - Usuarios\n");
+                        printf("3 - Voltar\n");
+                        printf("----------------- SAIDA -----------------\n");
+                        scanf("%d", &esc02);
 
-                            if(esc02 == 3){
-                                break;
-                            }
+                        if (esc02 == 3)
+                        {
+                            break;
+                        }
 
                             switch(esc02){
                                 Evento *ev;
@@ -186,23 +208,24 @@ int main()
                                 default:
                                     printf("Opção Invalida");
                                     break;
-                            }
+                                                    }
+                    } while (esc02 != 3);
+                case 2:
+                    do
+                    {
+                        limpar_tela_ansi();
+                        printf("----------------- OPCOES -----------------\n");
+                        printf("Você deseja usar Busca Binária em:\n");
+                        printf("1 - Eventos\n");
+                        printf("2 - Usuarios\n");
+                        printf("3 - Voltar\n");
+                        printf("----------------- SAIDA -----------------\n");
+                        scanf("%d", &esc02);
 
-                        } while(esc02 != 3);
-                    case 2:
-                        do {
-                            limpar_tela_ansi();
-                            printf("----------------- OPCOES -----------------\n");
-                            printf("Você deseja usar Busca Binária em:\n");
-                            printf("1 - Eventos\n");
-                            printf("2 - Usuarios\n");
-                            printf("3 - Voltar\n");
-                            printf("----------------- SAIDA -----------------\n");
-                            scanf("%d", &esc02);
-
-                            if(esc02 == 3){
-                                break;
-                            }
+                        if (esc02 == 3)
+                        {
+                            break;
+                        }
 
                             switch(esc02){
                                 Evento *ev;
@@ -251,13 +274,11 @@ int main()
                                     break;
                             }
                         } while(esc02 != 3);
-                }
             } while (esc2 != 3);
             break;
         case 3:
             limpar_tela_ansi();
-            int esc3 = 0;
-            User *us;
+
             printf("Informe os dados para o cadastro: \n");
             printf("Nome: Davi | Email: davi@email.com | Senha: davi123 | Telefone: (31) 99999-9999 | CPF: 111.222.333-00 | Tipo: Produtor");
             cadastrarUsuario(arq_users, "Davi", "davi@email.com", "davi123", "(31) 99999-9999", "111.222.333-00", 0);
@@ -308,7 +329,7 @@ int main()
                     printf("1 - Listar Eventos\n");
                     printf("2 - Voltar ao Menu Principal\n");
                     printf("-------------------------------------\n");
-                    printf("Escolha uma opção: ");
+                    printf("Escolha uma opcaoo: ");
                     scanf("%d", &escVisitante);
 
                     switch (escVisitante)
@@ -322,7 +343,7 @@ int main()
                         printf("\nVoltando ao menu principal...\n");
                         break;
                     default:
-                        printf("\nOpção inválida!\n");
+                        ERROR("\nOpcaoo invalida!\n");
                         pausarTela();
                         break;
                     }
@@ -338,36 +359,60 @@ int main()
                     limpar_tela_ansi();
                     printf("--- Menu de Eventos (Produtor) ---\n");
                     printf("1 - Cadastrar Novo Evento\n");
-                    printf("2 - Listar Meus Eventos\n");
+                    printf("2 - Listar Eventos\n");
                     printf("3 - Deletar um Evento\n");
                     printf("4 - Voltar ao Menu Principal\n");
                     printf("----------------------------------\n");
-                    printf("Escolha uma opção: ");
+                    printf("Escolha uma opcao: ");
                     scanf("%d", &escProdutor);
 
                     switch (escProdutor)
                     {
                     case 1:
                         limpar_tela_ansi();
+
                         printf("Informe os dados para o cadastro: \n");
-                        printf("Nome: FelipeRet | Descrição: Show de musica | QtdIngres: 12000 | Valor Ing: 175\n");
-                        cadastrarEvento(arq_eventos, "FelipeRet", "Show de musica ", 12000, 175.00);
+                        printf("Nome: Arraial D&A Producoes | Descricao: O melhor arraial da região! | Quantidade de Ingressos: 100 | Valo(R$): 20.50");
+                        cadastrarEvento(arq_eventos, "Arraial D&A Producoes", "O melhor arraial da regiao!", 100, 20.5);
+
                         pausarTela();
                         break;
                     case 2:
-                        printf("\n--- Lista de Todos os Eventos ---\n");
+                        printf("\n--- Listagem de Eventos ---\n");
                         imprimirBaseEvento(arq_eventos);
+
                         pausarTela();
                         break;
                     case 3:
-                        printf("\nFuncionalidade 'Deletar Evento' a ser implementada.\n");
+                        printf("\n--- Exclusão de Evento ---\n");
+
+                        rewind(arq_eventos);
+
+                        Evento *ev = lerEventos(arq_eventos);
+                        if (ev)
+                        {
+                            int idParaExcluir = ev->id;
+                            free(ev);
+
+                            rewind(arq_eventos);
+                            if (deletarEventoPorId(arq_eventos, idParaExcluir))
+                                printf("Evento com ID %d excluído com sucesso!\n", idParaExcluir);
+                            else
+                                printf("Evento com ID %d não encontrado.\n", idParaExcluir);
+                        }
+                        else
+                        {
+                            printf("Nenhum evento disponível para exclusão.\n");
+                        }
+
                         pausarTela();
                         break;
+
                     case 4:
                         printf("\nVoltando ao menu principal...\n");
                         break;
                     default:
-                        printf("\nOpção inválida!\n");
+                        ERROR("\nOpcao invalida!\n");
                         pausarTela();
                     }
                 } while (escProdutor != 4);
@@ -381,10 +426,9 @@ int main()
                     printf("------ Menu de Eventos (Cliente) ------\n");
                     printf("1 - Listar Todos os Eventos\n");
                     printf("2 - Adicionar Ingresso ao Carrinho\n");
-                    printf("3 - Comprar Ingresso (Direto)\n");
-                    printf("4 - Voltar ao Menu Principal\n");
+                    printf("3 - Voltar ao Menu Principal\n");
                     printf("---------------------------------------\n");
-                    printf("Escolha uma opção: ");
+                    printf("Escolha uma opcaoo: ");
                     scanf("%d", &escCliente);
 
                     switch (escCliente)
@@ -395,26 +439,179 @@ int main()
                         pausarTela();
                         break;
                     case 2:
-                        printf("\nFuncionalidade 'Adicionar ao Carrinho' a ser implementada.\n");
+                        rewind(arq_eventos);
+                        Evento *ev = lerEventos(arq_eventos);
+                        if (!ev)
+                        {
+                            printf("Nenhum evento encontrado.\n");
+                            break;
+                        }
+
+                        rewind(arq_carrinho);
+                        Carrinho *car = NULL;
+                        int encontrado = 0;
+                        FILE *tempCarrinho = tmpfile();
+
+                        while ((car = lerCarrinho(arq_carrinho)) != NULL)
+                        {
+                            if (car->idCliente == usuarioLogado->id)
+                            {
+                                encontrado = 1;
+                                break;
+                            }
+                            salvarCarrinho(car, tempCarrinho);
+                            free(car);
+                        }
+
+                        if (!encontrado)
+                        {
+                            int novoId = gerarIdUnico(arq_carrinho, sizeof(Carrinho));
+                            car = criarCarrinho(novoId, usuarioLogado->id);
+                            salvarCarrinho(car, arq_carrinho); // <- salva no arquivo
+                        }
+
+                        ItemCarrinho item;
+                        item.id = 0;
+                        item.idEvento = ev->id;
+                        item.quantidade = 1 + rand() % 10;
+
+                        adicionarItemAoCarrinho(arq_carrinho, car->id, &item);
+
+                        printf("Item adicionado ao carrinho com sucesso!\n");
+
+                        if (ev)
+                            free(ev);
+                        if (car)
+                            free(car);
+                        if (tempCarrinho)
+                            fclose(tempCarrinho);
+
                         pausarTela();
                         break;
                     case 3:
-                        printf("\nFuncionalidade 'Comprar Ingresso' a ser implementada.\n");
-                        pausarTela();
-                        break;
-                    case 4:
                         printf("\nVoltando ao menu principal...\n");
                         break;
                     default:
-                        printf("\nOpção inválida!\n");
+                        ERROR("\nOpcaoo invalida!\n");
                         pausarTela();
                     }
-                } while (escCliente != 4);
+                } while (escCliente != 3);
+            }
+
+            break;
+        case 6:
+            if (usuarioLogado == NULL)
+            {
+                ERROR("Faça login para continuar!");
+                break;
+            }
+            else
+            {
+                int esc;
+                do
+                {
+                    limpar_tela_ansi();
+                    printf("--- Carrinho ---\n");
+                    printf("1 - Consultar Carrinho\n");
+                    printf("2 - Remover item do carrinho\n");
+                    printf("3 - Finalizar carrinho (comprar)\n");
+                    printf("4 - Voltar para o menu inicial\n");
+                    printf("-------------------------------------\n");
+                    printf("Escolha uma opcaoo: ");
+                    scanf("%d", &esc);
+
+                    switch (esc)
+                    {
+                    case 1:
+                        rewind(arq_carrinho);
+                        Carrinho *c;
+                        while ((c = lerCarrinho(arq_carrinho)) != NULL)
+                        {
+                            if (c->idCliente == usuarioLogado->id)
+                            {
+                                printf("sss %d", c->idCliente);
+                                imprimirCarrinho(c);
+                                free(c);
+                                break;
+                            }
+                            free(c);
+                        }
+                        pausarTela();
+                        break;
+
+                    case 2:
+                        rewind(arq_carrinho);
+                        Carrinho *c2;
+                        int achouRemover = 0;
+
+                        while ((c2 = lerCarrinho(arq_carrinho)) != NULL)
+                        {
+                            if (c2->idCliente == usuarioLogado->id)
+                            {
+                                achouRemover = 1;
+                                if (c2->totalItens > 0)
+                                {
+                                    removerItemDoCarrinho(arq_carrinho, c2->id, c2->itens[0].idEvento);
+                                    printf("Item removido do carrinho.\n");
+                                }
+                                else
+                                {
+                                    printf("Carrinho esta vazio.\n");
+                                }
+                                free(c2);
+                                break;
+                            }
+                            free(c2);
+                        }
+                        if (!achouRemover)
+                            printf("Carrinho não encontrado.\n");
+
+                        break;
+                    case 3:
+                        rewind(arq_carrinho);
+                        Carrinho *c3;
+                        while ((c3 = lerCarrinho(arq_carrinho)) != NULL)
+                        {
+                            if (c3->idCliente == usuarioLogado->id)
+                            {
+                                finalizarCarrinho(arq_carrinho, arq_ingressos, c3->id);
+                                printf("Carrinho finalizado com sucesso!\n");
+                                free(c3);
+                                break;
+                            }
+                            free(c3);
+                        }
+                        pausarTela();
+                        break;
+
+                    case 4:
+                        printf("\nVoltando ao menu principal...\n");
+                        break;
+
+                    default:
+                        ERROR("\nOpcaoo invalida!\n");
+                        pausarTela();
+                        break;
+                    }
+                } while (esc != 4);
             }
 
             pausarTela();
             break;
         case 7:
+            if (usuarioLogado == NULL)
+            {
+                ERROR("Faça login para visualizar seus ingressos!");
+            }
+            else
+            {
+                rewind(arq_ingressos);
+                listarIngressos(arq_ingressos, usuarioLogado->id);
+            }
+
+            pausarTela();
+            break;
+        case 8:
 
             if (usuarioLogado)
             {
@@ -424,7 +621,7 @@ int main()
             }
             else
             {
-                printf("\nNenhum usuário está logado.\n");
+                printf("\nNenhum usuario esta logado.\n");
             }
 
             pausarTela();
