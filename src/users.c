@@ -154,22 +154,18 @@ void imprimirBaseUser(FILE *out)
 
 void *cadastrarUsuario(FILE *out, char *nome, char *email, char *senha, char *telefone, char *cpf, Tipo Usuario)
 {
-    User *us;
-    int count = 0;
+    int novoId = gerarIdUnico(out, tamanho_registroUs());
+    User *us = CriarUsuario(novoId + 1, nome, email, senha, telefone, cpf, Usuario);
 
-    rewind(out);
-    while ((us = lerUsuario(out)) != NULL)
-    {
-        count++;
-    }
-
-    us = CriarUsuario(count + 1, nome, email, senha, telefone, cpf, Usuario);
+    fseek(out, 0, SEEK_END);
 
     if (us)
     {
         salvarUsuario(us, out);
+        printf("\nUsuario '%s' cadastrado com sucesso com o ID: %d\n", us->nome, us->id);
         free(us);
     }
+    return NULL;
 }
 
 User *loginPorEmailSenha(FILE *in, const char *email, const char *senha)
