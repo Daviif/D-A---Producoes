@@ -155,7 +155,7 @@ void imprimirBaseUser(FILE *out)
 void *cadastrarUsuario(FILE *out, char *nome, char *email, char *senha, char *telefone, char *cpf, Tipo Usuario)
 {
     int novoId = gerarIdUnico(out, tamanho_registroUs());
-    User *us = CriarUsuario(novoId + 1, nome, email, senha, telefone, cpf, Usuario);
+    User *us = CriarUsuario(novoId, nome, email, senha, telefone, cpf, Usuario);
 
     fseek(out, 0, SEEK_END);
 

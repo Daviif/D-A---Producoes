@@ -305,6 +305,7 @@ int main()
                 printf("Informe os dados para o cadastro: \n");
                 printf("Nome: Davi | Email: davi@email.com | Senha: davi123 | Telefone: (31) 99999-9999 | CPF: 111.222.333-00 | Tipo: Produtor");
                 cadastrarUsuario(arq_users, "Davi", "davi@email.com", "davi123", "(31) 99999-9999", "111.222.333-00", 0);
+                cadastrarUsuario(arq_users, "Arthur", "arthur@email.com", "arthur123", "(31) 99999-9999", "111.222.333-00", 1);
                 imprimirBaseUser(arq_users);
 
                 pausarTela();
@@ -316,12 +317,17 @@ int main()
                 }
                 else
                 {
-                    char emailLogin[100] = "davi@email.com";
-                    char senhaLogin[50] = "davi123";
+                    //char emailLogin[100] = "davi@email.com";
+                    //char senhaLogin[50] = "davi123";
+                    char emailLogin[100] = "arthur@email.com";
+                    char senhaLogin[50] = "arthur123";
                     printf("--- Login ---\n");
                     printf("Email: davi@email.com ");
                     printf("Senha: davi123");
 
+                    //Logar Produtor
+                    //usuarioLogado = loginPorEmailSenha(arq_users, emailLogin, senhaLogin);
+                    //Logar Usuario
                     usuarioLogado = loginPorEmailSenha(arq_users, emailLogin, senhaLogin);
 
                     if (usuarioLogado)
@@ -406,13 +412,16 @@ int main()
                             break;
                         case 3:
                             printf("\n--- Exclusão de Evento ---\n");
+                            int idParaExcluir = 3;
 
+                            printf("Informe o ID do evento a ser deletado: ");
+                            scanf("%d", &idParaExcluir);
                             rewind(arq_eventos);
 
                             Evento *ev = lerEventos(arq_eventos);
                             if (ev)
                             {
-                                int idParaExcluir = ev->id;
+                                
                                 free(ev);
 
                                 rewind(arq_eventos);

@@ -18,18 +18,22 @@ User *User_buscaSequencial_PorId(FILE *in, int chave, FILE *log){
     }
 
     if(encontrar == 1){
+        fprintf(log, "\n---------------------------");
         fprintf(log, "\nComparacoes Sequencial: %d ", cont);
         clock_t fimT = clock();
         double total = (fimT - inicioT)/CLOCKS_PER_SEC;
         fprintf(log, "\nTempo Sequencial: %f ", total);
+        fprintf(log, "\n---------------------------\n");
         return us;
     }
     else{
         printf("Usuario nao encontrado");
+        fprintf(log, "\n---------------------------");
         fprintf(log, "\nComparacoes Sequencial: %d ", cont);
         clock_t fimT = clock();
         double total = (fimT - inicioT)/CLOCKS_PER_SEC;
         fprintf(log, "\nTempo Sequencial: %f ", total);
+        fprintf(log, "\n---------------------------\n");
     }
 
     return NULL;
@@ -50,18 +54,22 @@ Evento *Evento_buscaSequencial_PorId(FILE *in, int chave, FILE *log){
         free(ev);
     }
     if(encontrar == 1){
+        fprintf(log, "\n---------------------------");
         fprintf(log, "\nComparacoes Sequencial: %d ", cont);
         clock_t fimT = clock();
         double total = (fimT - inicioT)/CLOCKS_PER_SEC;
         fprintf(log, "\nTempo Sequencial: %f ", total);
+        fprintf(log, "\n---------------------------\n");
         return ev;
     }
     else{
         printf("Usuario nao encontrado");
+        fprintf(log, "\n---------------------------");
         fprintf(log, "\nComparacoes Sequencial: %d ", cont);
         clock_t fimT = clock();
         double total = (fimT - inicioT)/CLOCKS_PER_SEC;
         fprintf(log, "\nTempo Sequencial: %f ", total);
+        fprintf(log, "\n---------------------------\n");
     }
 
     return NULL;
@@ -84,10 +92,12 @@ Evento *Evento_buscaBinaria_PorId(FILE *in, int chave, int inicio, int fim, FILE
         cod = ev -> id;
 
         if (cod == chave){
+            fprintf(log, "\n---------------------------");
             fprintf(log, "\nComparacoes Binaria: %d ", cont);
             clock_t fimT = clock();
             double total = (fimT - inicioT)/CLOCKS_PER_SEC;
             fprintf(log, "\nTempo Binaria: %f ", total);
+            fprintf(log, "\n---------------------------\n");
             return ev;
         }
 
@@ -120,10 +130,12 @@ User *User_buscaBinaria_PorID(FILE *in, int chave, int inicio, int fim, FILE *lo
         cod = us->id;
 
         if (cod == chave){
+            fprintf(log, "\n---------------------------");
             fprintf(log, "\nComparacoes Binaria: %d ", cont);
             clock_t fimT = clock();
             double total = (fimT - inicioT)/CLOCKS_PER_SEC;
             fprintf(log, "\nTempo Binaria: %f ", total);
+            fprintf(log, "\n---------------------------\n");
             return us;
         }
 
