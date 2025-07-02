@@ -62,7 +62,11 @@ void pausarTela()
 }
 
 int tamanho_registroEv() {
-    return sizeof(Evento);
+    return sizeof(int) +
+           sizeof(char) * 100 +
+           sizeof(char) * 150 +
+           sizeof(int) +
+           sizeof(double);
 }
 
 int tamanho_registroUs() {

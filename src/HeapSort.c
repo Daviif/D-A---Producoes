@@ -52,12 +52,16 @@ void heapify(FILE *arq, int n, int i, int tipoRegistro) {
         lerRegistro(arq, reg_esq, esq, tipoRegistro);
         if (obterId(reg_esq, tipoRegistro) > obterId(reg_maior, tipoRegistro)) {
             maior = esq;
-            memcpy(reg_maior, reg_esq, tamanho);
         }
     }
 
     if (dir < n) {
         lerRegistro(arq, reg_dir, dir, tipoRegistro);
+
+        if (maior == esq) {
+            lerRegistro(arq, reg_maior, esq, tipoRegistro);  // Atualiza reg_i
+        }
+        
         if (obterId(reg_dir, tipoRegistro) > obterId(reg_maior, tipoRegistro)) {
             maior = dir;
         }

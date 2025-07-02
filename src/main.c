@@ -43,7 +43,7 @@ int main()
         exit(1);
     }
 
-    int tamEv = 5, tamUs = 10;
+    int tamEv = 1500, tamUs = 1500;
 
     User *usuarioLogado = NULL;
 
