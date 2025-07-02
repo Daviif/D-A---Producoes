@@ -28,8 +28,7 @@ int obterId(void *registro, int tipoRegistro);
 
 void trocarRegistros(FILE *arq, int i, int j, int tipoRegistro);
 
-void heapify(FILE *arq, int n, int i, int tipoRegistro);
+void heapify(FILE *arq, int n, int i, int tipoRegistro, int *c, int *t);
 
-void heapSort(FILE *arq, int n, int tipoRegistro);
-
+void heapSort(FILE *arq, int n, int tipoRegistro, FILE *log);
 #endif

@@ -42,8 +42,12 @@ int main()
         ERROR("Erro ao abrir arquivo ingressos.dat");
         exit(1);
     }
+    if ((log = fopen("log.txt", "a+")) == NULL){
+        ERROR("Erro ao abrir arquivo log.txt");
+        exit(1);
+    }
 
-    int tamEv = 1500, tamUs = 1500;
+    int tamEv = 10, tamUs = 10;
 
     User *usuarioLogado = NULL;
 
@@ -102,7 +106,7 @@ int main()
                             printf("Agora a base ordenada!\n");
                             rewind(arq_eventos);
                             int total_eventos = tamanho_arquivoEv(arq_eventos);
-                            heapSort(arq_eventos, total_eventos, TIPO_Evento);
+                            heapSort(arq_eventos, total_eventos, TIPO_Evento, log);
                             imprimirBaseEvento(arq_eventos);
 
                             pausarTela();
@@ -117,7 +121,7 @@ int main()
                             printf("Agora a base ordenada!\n");
                             rewind(arq_users);
                             int total_users = tamanho_arquivoUs(arq_users);
-                            heapSort(arq_users, total_users, TIPO_User);
+                            heapSort(arq_users, total_users, TIPO_User,log);
                             imprimirBaseUser(arq_users);
 
                             pausarTela();
@@ -241,7 +245,7 @@ int main()
                                     printf("Você escolheu Eventos!\n");
                                     printf("A base tem que estar ordenada!\nOrdenando...\n");
                                     int total_eventos = tamanho_arquivoEv(arq_eventos);
-                                    heapSort(arq_eventos, total_eventos, TIPO_Evento);
+                                    heapSort(arq_eventos, total_eventos, TIPO_Evento, log);
                                     printf("Ordenado!\nAgora informe o ID do evento: ");
                                     scanf("%d", &idB);
 
@@ -266,7 +270,7 @@ int main()
                                     printf("Você escolheu Usuarios!\n");
                                     printf("A base tem que estar ordenada!\nOrdenando...\n");
                                     int total_users = tamanho_arquivoUs(arq_users);
-                                    heapSort(arq_users, total_users, TIPO_User);
+                                    heapSort(arq_users, total_users, TIPO_User, log);
                                     printf("Ordenado!\nAgora informe o ID do Usuario: ");
                                     scanf("%d", &idB);
                                     rewind(arq_users);
@@ -656,6 +660,6 @@ int main()
     fclose(arq_users);
     fclose(arq_carrinho);
     fclose(arq_ingressos);
-
+    fclose(log);
     return 0;
 }

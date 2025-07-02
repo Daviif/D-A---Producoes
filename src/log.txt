@@ -1,0 +1,4 @@
+Tempo de Execução: 0.000364
+Comparações: 35
+Numero de trocas: 26
+------------------------------
