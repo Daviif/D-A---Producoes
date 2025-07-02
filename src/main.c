@@ -180,7 +180,7 @@ int main()
                                     printf("Informe o ID do evento: ");
                                     scanf("%d", &id);
                                     rewind(arq_eventos);
-                                    ev = Evento_buscaSequencial_PorId(arq_eventos, id);
+                                    ev = Evento_buscaSequencial_PorId(arq_eventos, id, log);
                                     if (!ev)
                                     {
                                         printf("Id de numero %d nao encontrado.", id);
@@ -199,7 +199,7 @@ int main()
                                     printf("Informe o ID do usuario: ");
                                     scanf("%d", &id);
                                     rewind(arq_users);
-                                    us = User_buscaSequencial_PorId(arq_users, id);
+                                    us = User_buscaSequencial_PorId(arq_users, id, log);
                                     if (!us)
                                     {
                                         printf("Id de numero %d nao encontrado.", id);
@@ -250,7 +250,7 @@ int main()
                                     scanf("%d", &idB);
 
                                     rewind(arq_eventos);
-                                    ev = Evento_buscaBinaria_PorId(arq_eventos, idB, 0, tamanho_arquivoEv(arq_eventos) - 1);
+                                    ev = Evento_buscaBinaria_PorId(arq_eventos, idB, 0, tamanho_arquivoEv(arq_eventos) - 1, log);
 
                                     if (!ev)
                                     {
@@ -275,7 +275,7 @@ int main()
                                     scanf("%d", &idB);
                                     rewind(arq_users);
 
-                                    us = User_buscaBinaria_PorID(arq_users, idB, 0, tamanho_arquivoUs(arq_users) - 1);
+                                    us = User_buscaBinaria_PorID(arq_users, idB, 0, tamanho_arquivoUs(arq_users) - 1, log);
                                     if (!us)
                                     {
                                         printf("Id de numero %d não encontrado.", idB);

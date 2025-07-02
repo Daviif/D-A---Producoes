@@ -63,7 +63,7 @@ void criarBaseUsuarios(FILE *out, int qtdUser)
     char emailFmt[100];
     char senhaFmt[50];
     char telFmt[50];
-    char cpfFmt[15];
+    char cpfFmt[20];
 
     char *letra = (char *)malloc(2);
     if (letra == NULL)

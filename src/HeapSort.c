@@ -100,7 +100,7 @@ void heapSort(FILE *arq, int n, int tipoRegistro, FILE *log) {
     clock_t fimT= clock();
     tempo_execucao = ((double)(fimT - inicioT)) / CLOCKS_PER_SEC;
 
-    fprintf(log, "Tempo de Execução: %.6f\n", tempo_execucao);
+    fprintf(log, "\nTempo de Execução: %.6f\n", tempo_execucao);
     fprintf(log, "Comparações: %d\n", comparacoes);
     fprintf(log, "Numero de trocas: %d\n", trocas);
     fprintf(log, "------------------------------");

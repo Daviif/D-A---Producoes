@@ -1,4 +1,6 @@
-Tempo de Execução: 0.000364
-Comparações: 35
-Numero de trocas: 26
-------------------------------
+
+Comparacoes Sequencial: 0 
+Tempo Sequencial: 0.000000 
+
+Comparacoes Sequencial: 2 
+Tempo Sequencial: 0.000000 

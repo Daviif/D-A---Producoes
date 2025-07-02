@@ -9,12 +9,12 @@
 #include <string.h>
 #include <math.h>
 
-User *User_buscaSequencial_PorId(FILE *in, int chave);
+User *User_buscaSequencial_PorId(FILE *in, int chave, FILE *log);
 
-Evento *Evento_buscaSequencial_PorId(FILE *in, int chave);
+Evento *Evento_buscaSequencial_PorId(FILE *in, int chave, FILE *log);
 
-Evento *Evento_buscaBinaria_PorId(FILE *in, int chave, int inicio, int fim);
+Evento *Evento_buscaBinaria_PorId(FILE *in, int chave, int inicio, int fim, FILE *log);
 
-User *User_buscaBinaria_PorID(FILE *in, int chave, int inicio, int fim);
+User *User_buscaBinaria_PorID(FILE *in, int chave, int inicio, int fim, FILE *log);
 
 #endif
