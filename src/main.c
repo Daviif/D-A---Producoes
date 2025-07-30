@@ -85,7 +85,7 @@ int main()
                 printf("Escolha o método de ordenação:\n");
                 printf("1 - HeapSort (Eventos)\n");
                 printf("2 - HeapSort (Usuarios)\n");
-                printf("3 - Intercalação Ótima (Eventos)\n");
+                printf("3 - Intercalacao Otima (Eventos)\n");
                 printf("4 - Voltar\n");
                 printf("----------------- SAIDA -----------------\n");
                 scanf("%d", &esc1);
@@ -124,7 +124,7 @@ int main()
                     break;
                 case 3:
                     limpar_tela_ansi();
-                    printf("\nVocê escolheu ordenar eventos por Intercalação Ótima!\n");
+                    printf("\nVoce escolheu ordenar eventos por Intercalacao Otima!\n");
                     
                     // Abre arquivo de log
                     log = fopen("log_ordenacao.txt", "a");
@@ -145,15 +145,15 @@ int main()
                     int totalRegistros = tamanho_arquivoEv(arq_eventos);
                     int memDisponivel = 3; // Memória disponível para o reservatório
                     
-                    printf("Iniciando ordenação por Intercalação Ótima...\n");
+                    printf("Iniciando ordenacao por Intercalacao Otima...\n");
                     printf("Total de registros: %d\n", totalRegistros);
-                    printf("Memória disponível: %d registros\n\n", memDisponivel);
+                    printf("Memoria disponivel: %d registros\n\n", memDisponivel);
                     
                     // Executa a ordenação
                     int resultado = ordenarPorIntercalacaoOtima(arq_eventos, memDisponivel, totalRegistros, log);
                     
                     if (resultado > 0) {
-                        printf("\nOrdenação concluída com sucesso!\n");
+                        printf("\nOrdenacao concluida com sucesso!\n");
                         printf("Registros processados: %d\n\n", resultado);
                         
                         // Imprime arquivo ordenado

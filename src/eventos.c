@@ -526,14 +526,14 @@ int ordenarPorIntercalacaoOtima(FILE *arqEventos, int memDisponivel, int totalRe
     int numRuns = selecaoSubstituicao(arqEventos, memDisponivel, totalRegistros, log);
     
     if (numRuns <= 0) {
-        fprintf(stderr, "Erro na criação das corridas.\n");
+        fprintf(stderr, "Erro na criacao das corridas.\n");
         return -1;
     }
     
     // Aloca array com nomes dos arquivos de corrida
     char **nomesArquivos = malloc(numRuns * sizeof(char*));
     if (!nomesArquivos) {
-        fprintf(stderr, "Erro ao alocar memória para nomes de arquivos.\n");
+        fprintf(stderr, "Erro ao alocar memoria para nomes de arquivos.\n");
         return -1;
     }
     
@@ -555,8 +555,8 @@ int ordenarPorIntercalacaoOtima(FILE *arqEventos, int memDisponivel, int totalRe
     clock_t fimT = clock();
     double tempo_total = ((double)(fimT - inicioT)) / CLOCKS_PER_SEC;
     
-    fprintf(log, "\nTempo total de ordenação: %.6f segundos\n", tempo_total);
-    printf("\nOrdenação por Intercalação Ótima concluída!\n");
+    fprintf(log, "\nTempo total de ordenacao: %.6f segundos\n", tempo_total);
+    printf("\nOrdenacao por Intercalacao Otima concluida!\n");
     printf("Arquivo ordenado: eventos_ordenados.dat\n");
     
     return resultado;
