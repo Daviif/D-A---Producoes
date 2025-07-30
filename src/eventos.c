@@ -58,7 +58,7 @@ void criarBaseEventos(FILE *out, int qtdEventos)
     if (letra == NULL)
     {
         perror("Falha na alocação inicial");
-        return; // Correção: 'return' sem valor para função void
+        return; 
     }
     strcpy(letra, "A");
 
@@ -133,22 +133,18 @@ void imprimirBaseEvento(FILE *out)
 
 void *cadastrarEvento(FILE *out, char *nome, char *descricao, int qtdIngresso, double valorIngresso)
 {
-    Evento *ev;
-    int count = 0;
+    int novoId = gerarIdUnico(out, tamanho_registroEv());
+    Evento *ev = criarEvento(novoId + 1, nome, descricao, qtdIngresso, valorIngresso);
 
-    rewind(out);
-    while ((ev = lerEventos(out)) != NULL)
-    {
-        count++;
-    }
-
-    ev = criarEvento(count + 1, nome, descricao, qtdIngresso, valorIngresso);
+    fseek(out, 0, SEEK_END);
 
     if (ev)
     {
         salvarEvento(ev, out);
+        printf("\nEvento '%s' cadastrado com sucesso com o ID: %d\n", ev->nome, ev->id);
         free(ev);
     }
+    return NULL;    
 }
 
 int deletarEventoPorId(FILE *out, int idParaDeletar)
