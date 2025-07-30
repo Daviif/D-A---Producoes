@@ -82,15 +82,15 @@ int main()
             {
                 limpar_tela_ansi();
                 printf("----------------- Tipo de Ordenação -----------------\n");
-                printf("Usaremos a Ordenaçao por HeapSort!\n");
-                printf("Voce deseja odernar:\n");
-                printf("1 - A base de Eventos\n");
-                printf("2 - A base de Usuarios\n");
-                printf("3 - Voltar\n");
+                printf("Escolha o método de ordenação:\n");
+                printf("1 - HeapSort (Eventos)\n");
+                printf("2 - HeapSort (Usuarios)\n");
+                printf("3 - Intercalação Ótima (Eventos)\n");
+                printf("4 - Voltar\n");
                 printf("----------------- SAIDA -----------------\n");
                 scanf("%d", &esc1);
 
-                if (esc1 == 3)
+                if (esc1 == 4)
                 {
                     break;
                 }
@@ -122,10 +122,62 @@ int main()
 
                     pausarTela();
                     break;
+                case 3:
+                    limpar_tela_ansi();
+                    printf("\nVocê escolheu ordenar eventos por Intercalação Ótima!\n");
+                    
+                    // Abre arquivo de log
+                    log = fopen("log_ordenacao.txt", "a");
+                    if (!log) {
+                        printf("Erro ao abrir arquivo de log.\n");
+                        pausarTela();
+                        break;
+                    }
+                    
+                    // Imprime base desordenada
+                    printf("Base de eventos desordenada:\n");
+                    printf("==========================================\n");
+                    imprimirBaseEvento(arq_eventos);
+                    printf("==========================================\n\n");
+                    
+                    // Calcula total de registros
+                    rewind(arq_eventos);
+                    int totalRegistros = tamanho_arquivoEv(arq_eventos);
+                    int memDisponivel = 3; // Memória disponível para o reservatório
+                    
+                    printf("Iniciando ordenação por Intercalação Ótima...\n");
+                    printf("Total de registros: %d\n", totalRegistros);
+                    printf("Memória disponível: %d registros\n\n", memDisponivel);
+                    
+                    // Executa a ordenação
+                    int resultado = ordenarPorIntercalacaoOtima(arq_eventos, memDisponivel, totalRegistros, log);
+                    
+                    if (resultado > 0) {
+                        printf("\nOrdenação concluída com sucesso!\n");
+                        printf("Registros processados: %d\n\n", resultado);
+                        
+                        // Imprime arquivo ordenado
+                        FILE *arqOrdenado = fopen("eventos_ordenados.dat", "rb");
+                        if (arqOrdenado) {
+                            printf("Base de eventos ordenada:\n");
+                            printf("==========================================\n");
+                            imprimirBaseEvento(arqOrdenado);
+                            printf("==========================================\n");
+                            fclose(arqOrdenado);
+                        } else {
+                            printf("Erro ao abrir arquivo ordenado.\n");
+                        }
+                    } else {
+                        printf("Erro na ordenação.\n");
+                    }
+                    
+                    fclose(log);
+                    pausarTela();
+                    break;
                 default:
                     break;
                 }
-            } while (esc1 != 3);
+            } while (esc1 != 4);
 
             pausarTela();
             break;
