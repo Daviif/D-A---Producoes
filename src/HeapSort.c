@@ -1,4 +1,5 @@
 #include "../include/HeapSort.h"
+#include <time.h>
 
 void lerRegistro(FILE *arq, void *registro, int pos, int tipoRegistro) {
     size_t tamanho = tamanhoRegistro(tipoRegistro);
@@ -80,16 +81,35 @@ void heapify(FILE *arq, int n, int i, int tipoRegistro, int *c, int *t){
 }
 
 
-void heapSort(FILE *arq, int n, int tipoRegistro,  int *c, int *t, FILE *log) {
-   
+void heapSort(FILE *arq, int n, int tipoRegistro, int *c, int *t, FILE *log) {
+    clock_t inicioT = clock();
+        *c = 0;
+    *t = 0;
+    
     for (int i = n / 2 - 1; i >= 0; i--) {
         heapify(arq, n, i, tipoRegistro, c, t);
     }
 
     for (int i = n - 1; i > 0; i--) {
         trocarRegistros(arq, 0, i, tipoRegistro);
+        (*t)++; 
 
         heapify(arq, i, 0, tipoRegistro, c, t);
     }
+    
     fflush(arq);
+    
+    clock_t fimT = clock();
+    double tempo_execucao = ((double)(fimT - inicioT)) / CLOCKS_PER_SEC;
+    
+    if (log != NULL) {
+        fprintf(log, "\n------------------------------\n");
+        fprintf(log, "Algoritmo: HeapSort (%s)\n", 
+                tipoRegistro == TIPO_Evento ? "Eventos" : "Usuarios");
+        fprintf(log, "Tempo de Execução: %.6f segundos\n", tempo_execucao);
+        fprintf(log, "Comparações: %d\n", *c);
+        fprintf(log, "Trocas: %d\n", *t);
+        fprintf(log, "Registros ordenados: %d\n", n);
+        fprintf(log, "------------------------------\n");
+    }
 }

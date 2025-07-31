@@ -1,4 +1,6 @@
-#include "../include/selecaoSubstituicao.h"
+#include "../include/eventos.h"
+#include "../include/utilities.h"
+
 
 int obterIdEvento(void *reservatorio, int indice) {
     Evento *eventos = (Evento*)reservatorio;
@@ -25,7 +27,6 @@ int selecaoSubstituicao(FILE *arqEventos, int memDisponivel, int totalRegistros,
     
     int tamReg = tamanho_registroEv();
     
-    // Aloca o reservatório (heap) com a memória disponível
     Evento *reservatorio = malloc(memDisponivel * sizeof(Evento));
     int *congelado = calloc(memDisponivel, sizeof(int));
     
@@ -39,7 +40,6 @@ int selecaoSubstituicao(FILE *arqEventos, int memDisponivel, int totalRegistros,
     int numRuns = 0;
     int registrosProcessados = 0;
     
-    // Carrega inicialmente o reservatório
     int registrosLidos = 0;
     for (int i = 0; i < memDisponivel && registrosLidos < totalRegistros; i++) {
         Evento *ev = lerEventos(arqEventos);
@@ -48,7 +48,7 @@ int selecaoSubstituicao(FILE *arqEventos, int memDisponivel, int totalRegistros,
             free(ev);
             registrosLidos++;
         } else {
-            congelado[i] = 1; // Marca como congelado se não conseguiu ler
+            congelado[i] = 1; 
         }
     }
     
@@ -68,19 +68,16 @@ int selecaoSubstituicao(FILE *arqEventos, int memDisponivel, int totalRegistros,
         int ultimoId = -1;
         int registrosAtivos = 0;
         
-        // Conta registros ativos (não congelados)
         for (int i = 0; i < memDisponivel; i++) {
             if (!congelado[i]) {
                 registrosAtivos++;
             }
         }
         
-        // Processa a corrida atual
         while (registrosAtivos > 0) {
             int minIndice = -1;
             int minId = INT_MAX;
             
-            // Encontra o menor ID entre os registros ativos
             for (int i = 0; i < memDisponivel; i++) {
                 if (!congelado[i]) {
                     comparacoes++;
@@ -92,15 +89,13 @@ int selecaoSubstituicao(FILE *arqEventos, int memDisponivel, int totalRegistros,
             }
             
             if (minIndice == -1) {
-                break; // Não há mais registros ativos
+                break; 
             }
             
-            // Escreve o registro com menor ID
             salvarEvento(&reservatorio[minIndice], arqSaida);
             ultimoId = reservatorio[minIndice].id;
             registrosProcessados++;
             
-            // Tenta ler um novo registro
             if (registrosLidos < totalRegistros) {
                 Evento *novoEv = lerEventos(arqEventos);
                 if (novoEv) {
@@ -108,18 +103,15 @@ int selecaoSubstituicao(FILE *arqEventos, int memDisponivel, int totalRegistros,
                     free(novoEv);
                     registrosLidos++;
                     
-                    // Verifica se o novo registro deve ser congelado
                     if (reservatorio[minIndice].id < ultimoId) {
                         congelado[minIndice] = 1;
                         registrosAtivos--;
                     }
                 } else {
-                    // Não há mais registros para ler
                     congelado[minIndice] = 1;
                     registrosAtivos--;
                 }
             } else {
-                // Não há mais registros para ler
                 congelado[minIndice] = 1;
                 registrosAtivos--;
             }
@@ -127,8 +119,7 @@ int selecaoSubstituicao(FILE *arqEventos, int memDisponivel, int totalRegistros,
         
         fclose(arqSaida);
         
-        // Reseta os congelados para a próxima corrida
-        // Reseta congelado e limpa posições do reservatório
+       
         for (int i = 0; i < memDisponivel; i++) {
             congelado[i] = 0;
         }

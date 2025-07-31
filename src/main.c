@@ -106,6 +106,14 @@ int main()
                         case 1:
                             limpar_tela_ansi();
                             printf("\nVoce escolheu ordenar a base de eventos!\n");
+                            
+                            log = fopen("log_ordenacao.txt", "a");
+                            if (!log) {
+                                printf("Erro ao abrir arquivo de log.\n");
+                                pausarTela();
+                                break;
+                            }
+                            
                             printf("A base desordenada:\n");
                             imprimirBaseEvento(arq_eventos);
                             printf("\n\n");
@@ -115,12 +123,21 @@ int main()
                             int total_eventos = tamanho_arquivoEv(arq_eventos);
                             heapSort(arq_eventos, total_eventos, TIPO_Evento, &comp, &tro, log);
                             imprimirBaseEvento(arq_eventos);
-
+                            
+                            fclose(log);
                             pausarTela();
                             break;
                         case 2:
                             limpar_tela_ansi();
                             printf("\nVoce escolheu ordenar a base de Usuarios!\n");
+                            
+                            log = fopen("log_ordenacao.txt", "a");
+                            if (!log) {
+                                printf("Erro ao abrir arquivo de log.\n");
+                                pausarTela();
+                                break;
+                            }
+                            
                             printf("A base desordenada:\n");
                             imprimirBaseUser(arq_users);
                             printf("\n\n");
@@ -130,14 +147,14 @@ int main()
                             int total_users = tamanho_arquivoUs(arq_users);
                             heapSort(arq_users, total_users, TIPO_User, &comp, &tro, log);
                             imprimirBaseUser(arq_users);
-
+                            
+                            fclose(log);
                             pausarTela();
                             break;
                         case 3:
                             limpar_tela_ansi();
                             printf("\nVoce escolheu ordenar eventos por Intercalacao Otima!\n");
                             
-                            // Abre arquivo de log
                             log = fopen("log_ordenacao.txt", "a");
                             if (!log) {
                                 printf("Erro ao abrir arquivo de log.\n");
@@ -145,14 +162,12 @@ int main()
                                 break;
                             }
                     
-                            // Imprime base desordenada
                             printf("Base de eventos desordenada:\n");
                             printf("==========================================\n");
                             imprimirBaseEvento(arq_eventos);
                             printf("==========================================\n\n");
                             
-                            // Calcula total de registros
-                            rewind(arq_eventos);
+                             rewind(arq_eventos);
                             int totalRegistros = tamanho_arquivoEv(arq_eventos);
                             
                     
@@ -160,15 +175,13 @@ int main()
                             printf("Total de registros: %d\n", totalRegistros);
                             printf("Memoria disponivel: %d registros\n\n", memDisponivel);
                             
-                            // Executa a ordenação
-                            int resultado = ordenarPorIntercalacaoOtima(arq_eventos, memDisponivel, totalRegistros, log);
+                             int resultado = ordenarPorIntercalacaoOtima(arq_eventos, memDisponivel, totalRegistros, log);
                                                 
                             if (resultado > 0) {
                                 printf("\nOrdenacao concluida com sucesso!\n");
                                 printf("Registros processados: %d\n\n", resultado);
                                     
-                                // Imprime arquivo ordenado
-                                FILE *arqOrdenado = fopen("eventos_ordenados.dat", "rb");
+                                 FILE *arqOrdenado = fopen("eventos_ordenados.dat", "rb");
                                 if (arqOrdenado) {
                                     printf("Base de eventos ordenada:\n");
                                     printf("==========================================\n");
@@ -304,8 +317,16 @@ int main()
                                     printf("Você escolheu Eventos!\n");
                                     printf("A base tem que estar ordenada!\nOrdenando...\n");
                                     
+                                     FILE *log_ordenacao = fopen("log_ordenacao.txt", "a");
+                                    if (!log_ordenacao) {
+                                        printf("Erro ao abrir arquivo de log.\n");
+                                        pausarTela();
+                                        break;
+                                    }
+                                    
                                     int total_eventos = tamanho_arquivoEv(arq_eventos);
-                                    heapSort(arq_eventos, total_eventos, TIPO_Evento, &comp, &tro, log_b);
+                                    heapSort(arq_eventos, total_eventos, TIPO_Evento, &comp, &tro, log_ordenacao);
+                                    fclose(log_ordenacao);
                                     printf("Ordenado!\nAgora informe o ID do evento: ");
                                     scanf("%d", &idB);
 
@@ -329,8 +350,17 @@ int main()
                                     int idB;
                                     printf("Você escolheu Usuarios!\n");
                                     printf("A base tem que estar ordenada!\nOrdenando...\n");
+                                    
+                                    FILE *log_ordenacao = fopen("log_ordenacao.txt", "a");
+                                    if (!log_ordenacao) {
+                                        printf("Erro ao abrir arquivo de log.\n");
+                                        pausarTela();
+                                        break;
+                                    }
+                                    
                                     int total_users = tamanho_arquivoUs(arq_users);
-                                    heapSort(arq_users, total_users, TIPO_User, &comp, &tro, log_b);
+                                    heapSort(arq_users, total_users, TIPO_User, &comp, &tro, log_ordenacao);
+                                    fclose(log_ordenacao);
                                     printf("Ordenado!\nAgora informe o ID do Usuario: ");
                                     scanf("%d", &idB);
                                     rewind(arq_users);
