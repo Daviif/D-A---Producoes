@@ -1,34 +1,50 @@
 
-------------------------------
+--------------1 Execução----------------
 Algoritmo: Seleção com Substituição (Corridas de Eventos)
-Tempo de Execução: 0.000000 segundos
-Comparações: 12
+Tempo de Execução: 0.002196 segundos
+Comparações: 19955
 Número de corridas geradas: 1
 Arquivos gerados: run_eventos_0.dat, ...
 ------------------------------
 
 ------------------------------
 Algoritmo: Intercalação Ótima (Cópia Simples)
-Registros copiados: 5
+Registros copiados: 2000
 Arquivo de saída: eventos_ordenados.dat
 ------------------------------
 
-Tempo total de ordenação: 0.027000 segundos
+Tempo total de ordenacao: 0.004310 segundos
+
+--------------1 Execução----------------
+Algoritmo: Seleção com Substituição (Corridas de Eventos)
+Tempo de Execução: 0.002670 segundos
+Comparações: 19955
+Número de corridas geradas: 1
+Arquivos gerados: run_eventos_0.dat, ...
+------------------------------
 
 ------------------------------
+Algoritmo: Intercalação Ótima (Cópia Simples)
+Registros copiados: 2000
+Arquivo de saída: eventos_ordenados.dat
+------------------------------
+
+Tempo total de ordenacao: 0.005720 segundos
+
+--------------102 Execução----------------
 Algoritmo: Seleção com Substituição (Corridas de Eventos)
-Tempo de Execução: 0.055000 segundos
-Comparações: 176
-Número de corridas geradas: 21
+Tempo de Execução: 0.008284 segundos
+Comparações: 13869
+Número de corridas geradas: 102
 Arquivos gerados: run_eventos_0.dat, ...
 ------------------------------
 
 ------------------------------
 Algoritmo: Intercalação Ótima (Eventos)
-Tempo de Execução: 0.034000 segundos
-Comparações: 81
-Registros escritos: 81
+Tempo de Execução: 0.004595 segundos
+Comparações: 2005
+Registros escritos: 2005
 Arquivo de saída: eventos_ordenados.dat
 ------------------------------
 
-Tempo total de ordenacao: 0.089000 segundos
+Tempo total de ordenacao: 0.012947 segundos

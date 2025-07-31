@@ -35,7 +35,7 @@ void trocarRegistros(FILE *arq, int i, int j, int tipoRegistro) {
     free(reg_j);
 }
 
-void heapify(FILE *arq, int n, int i, int tipoRegistro, int *c, int *t) {
+void heapify(FILE *arq, int n, int i, int tipoRegistro, int *c, int *t){
     int maior = i;
     int esq = 2 * i + 1;
     int dir = 2 * i + 2;
@@ -51,19 +51,17 @@ void heapify(FILE *arq, int n, int i, int tipoRegistro, int *c, int *t) {
     if (esq < n) {
         (*c)++;
         lerRegistro(arq, reg_esq, esq, tipoRegistro);
+        (*c)++;
         if (obterId(reg_esq, tipoRegistro) > obterId(reg_maior, tipoRegistro)) {
             maior = esq;
+            memcpy(reg_maior, reg_esq, tamanho);
         }
     }
 
     if (dir < n) {
         (*c)++;
         lerRegistro(arq, reg_dir, dir, tipoRegistro);
-
-        if (maior == esq) {
-            lerRegistro(arq, reg_maior, esq, tipoRegistro);  // Atualiza reg_i
-        }
-        
+        (*c)++;
         if (obterId(reg_dir, tipoRegistro) > obterId(reg_maior, tipoRegistro)) {
             maior = dir;
         }
@@ -75,34 +73,23 @@ void heapify(FILE *arq, int n, int i, int tipoRegistro, int *c, int *t) {
 
     if (maior != i) {
         (*t)++;
+        (*t)++;
         trocarRegistros(arq, i, maior, tipoRegistro);
         heapify(arq, n, maior, tipoRegistro, c, t);
     }
 }
 
 
-void heapSort(FILE *arq, int n, int tipoRegistro, FILE *log) {
-    int comparacoes = 0, trocas = 0;
-    double tempo_execucao;
-    clock_t inicioT = clock();
-
+void heapSort(FILE *arq, int n, int tipoRegistro,  int *c, int *t, FILE *log) {
+   
     for (int i = n / 2 - 1; i >= 0; i--) {
-        heapify(arq, n, i, tipoRegistro, &comparacoes, &trocas);
+        heapify(arq, n, i, tipoRegistro, c, t);
     }
 
     for (int i = n - 1; i > 0; i--) {
         trocarRegistros(arq, 0, i, tipoRegistro);
-        trocas++;
-        heapify(arq, i, 0, tipoRegistro, &comparacoes, &trocas);
+
+        heapify(arq, i, 0, tipoRegistro, c, t);
     }
     fflush(arq);
-
-    clock_t fimT= clock();
-    tempo_execucao = ((double)(fimT - inicioT)) / CLOCKS_PER_SEC;
-
-    fprintf(log, "\n------------------------------");
-    fprintf(log, "\nTempo de Execução: %.6f\n", tempo_execucao);
-    fprintf(log, "Comparações: %d\n", comparacoes);
-    fprintf(log, "Numero de trocas: %d\n", trocas);
-    fprintf(log, "------------------------------\n");
 }

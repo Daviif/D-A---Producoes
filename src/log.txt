@@ -1,0 +1,36 @@
+
+---------------------------
+Usuario Encontrado!
+Comparacoes Sequencial: 7 
+Tempo Sequencial: 0.000000 
+---------------------------
+
+---------------------------
+Usuario não encontrado!
+Comparacoes Sequencial: 10 
+Tempo Sequencial: 0.000019 
+---------------------------
+
+---------------------------
+Usuario não encontrado!
+Comparacoes Sequencial: 10 
+Tempo Sequencial: 0.000012 
+---------------------------
+
+---------------------------
+Usuario Encontrado!
+Comparacoes Sequencial: 5 
+Tempo Sequencial: 0.000000 
+---------------------------
+
+---------------------------
+Usuario encontrado!
+Comparacoes Binaria: 21850 
+Tempo Binaria: -140737488.000000 
+---------------------------
+
+---------------------------
+Evento encontrado!
+Comparacoes Binaria: 15 
+Tempo Binaria: 0.000000 
+---------------------------
